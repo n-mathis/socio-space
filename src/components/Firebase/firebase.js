@@ -48,6 +48,17 @@ class Firebase {
     user = uid => this.db.ref(`users/${uid}`);
 
     users = () => this.db.ref('users');
+
+    addComment = (disID, time, uid, text) => {
+        this.db.ref(`discussions/${disID}/${time}`).set({
+          user: uid,
+          text: text,
+        });
+      }
+    
+    getDiscussion = (disID) => this.db.ref(`discussions/${disID}`);
+    
+    currUser = () => {return this.auth.currentUser.uid}
 }
 
 export default Firebase;
