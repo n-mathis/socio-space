@@ -5,8 +5,10 @@ import re
 import string
 from nltk.tokenize import word_tokenize
 
+'''
+    Clean the tweets text
+'''
 def clean_tweets(tweet):
-    
     #HappyEmoticons
     emoticons_happy = set([
         ':-)', ':)', ';)', ':o)', ':]', ':3', ':c)', ':>', '=]', '8)', '=)', ':}',
@@ -32,11 +34,8 @@ def clean_tweets(tweet):
             u"\U00002702-\U000027B0"
             u"\U000024C2-\U0001F251"
             "]+", flags=re.UNICODE)
-    tweet = re.sub(r'‚Ä¶', '', tweet)
-    tweet = re.sub(r'(?:^|\s)[＠ @]{1}([^\s#<>[\]|{}]+)', '',tweet)    
-    tweet = re.sub(r'[^\x00-\x7F]+',' ', tweet)    
-    tweet = emoji_pattern.sub(r'', tweet)    
-    tweet = re.sub(r'http[s]?://(?:[a-z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-f][0-9a-f]))+','', tweet)    
+    tweet = re.sub(r'‚Ä¶', '', tweet)  
+    tweet = emoji_pattern.sub(r'', tweet)       
     tweet = re.sub(r':', '', tweet)
     word_tokens = word_tokenize(tweet)
     filtered_tweet = []
@@ -45,7 +44,10 @@ def clean_tweets(tweet):
             filtered_tweet.append(w)            
     return ' '.join(filtered_tweet)
 
-def clean_data(tweet):
+'''
+    To filter only required data from Twitter API
+'''
+def filter_data(tweet):
     df = pd.DataFrame()
     text=[]
     tweetdate = []
@@ -57,14 +59,18 @@ def clean_data(tweet):
     data = df.to_dict(orient="index")
     return data
 
+'''
+    Twitter API call
+'''
 def twitter_api_call(api):
     date = datetime.utcnow().date()
     keywords = ["environment", "climate change", "forest fire"]
+    userhandles = ['@ClimateHome', "@SailForScience", "@ClimateNewsAfr1"]
     # Fetching tweets
     tweet=[]
     for keyword in keywords:
-        for status in tweepy.Cursor(api.search,q = keyword, count=10, lang='en', exclude='retweets', since=str(date), result_type='popular').items(5):
-            tweet.append(status._json)
-            
-    data = clean_data(tweet)
+        for userhandle in userhandles:
+            for status in tweepy.Cursor(api.search, screen_name=userhandle, q = keyword, count=10, lang='en', exclude='retweets', since=str(date), result_type='popular').items(2):
+                tweet.append(status._json)   
+    data = filter_data(tweet)
     return data
