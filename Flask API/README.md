@@ -15,7 +15,7 @@ Install all the packages: `pip install -r requirements.txt`
 - Step 5:
 
 ```
-set FLASK_APP = server.py
+set FLASK_APP=server.py
 flask run
 ```
 
