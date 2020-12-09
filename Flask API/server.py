@@ -4,9 +4,12 @@ from flask_cors import CORS, cross_origin
 import tweepy
 from tweepy import OAuthHandler
 from data.twitter_data import twitter_api_call
+from dotenv import load_dotenv
 
 
 sys.path = os.getcwd()
+
+load_dotenv('.env')
 
 app = Flask(__name__)
 CORS(app)
@@ -14,10 +17,10 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 def getTweets():
     # Twittter App Credentials
-    consumer_key = "7b2fTzv0D6hYBy0D8zt8Bj3wU"
-    consumer_secret = "QgZUEIShFnH0FhUCgSdgLGtwDLy38Crxc9RBHC0vfudvfqbeyp"
-    access_token = "1179780108988477440-jZ3qFH8CVc9tcxxyKxZzOfdkhc5YkF"
-    access_token_secret = "AKT87Hz1OgvRSdHXhCdU0psm2rlSZGNFo9VgmMFkNA7g5"
+    consumer_key = os.getenv("consumer_key")
+    consumer_secret = os.getenv("consumer_secret")
+    access_token = os.getenv("access_token")
+    access_token_secret = os.getenv("access_token_secret")
 
     # Calling API
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
