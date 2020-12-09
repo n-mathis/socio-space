@@ -16,6 +16,7 @@ const Navigation = () => (
   </div>
 );
 
+// After the user has logged in
 const NavigationAuth = () => (
   <ul>
     <li>
@@ -36,6 +37,7 @@ const NavigationAuth = () => (
   </ul>
 );
 
+// Before User has logged 
 const NavigationNonAuth = () => (
   <ul>
     <li>
