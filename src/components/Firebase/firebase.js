@@ -49,6 +49,8 @@ class Firebase {
 
     users = () => this.db.ref('users');
 
+    // *** Comment and Discussion API *** 
+
     addComment = (disID, time, uid, text) => {
         this.db.ref(`discussions/${disID}/${time}`).set({
           user: uid,
@@ -59,6 +61,9 @@ class Firebase {
     getDiscussion = (disID) => this.db.ref(`discussions/${disID}`);
     
     currUser = () => {return this.auth.currentUser.uid}
+
+    // *** Tweet Storage API ***
+    
 }
 
 export default Firebase;
