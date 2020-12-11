@@ -42,7 +42,7 @@ class Discussion extends Component {
         const { text, comments, error } = this.state;
     
         return (
-        <div className="card shadow p-3 bg-white rounded mx-auto my-5" style={{width: '30rem'}}>
+        <div className="card shadow p-3 bg-white rounded mx-auto mb-5">
             <div className="card-body">
             {this.props.thread}
             <form onSubmit={this.onSubmit}>
