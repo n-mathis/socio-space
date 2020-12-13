@@ -4,6 +4,10 @@ The API gathers recent tweets related to 3 keywords:
 - Environment
 - Climate change
 - Forest fire
+From 3 user profiles:
+- @ClimateHome
+- @SailForScience
+- @ClimateNewsAfr1
 
 ## How to run Flask API?
 - Step 1:
@@ -27,6 +31,7 @@ The server will run on port `5000`
 - **API Call:** `http://127.0.0.1:5000/tweets`
 - **Request Method:** get 
 - **Returns:** JSON
-`{0:{"text": "            ", "tweet_date": "  "}, 1:"text": "            ", "tweet_date": "  "}}`
+`{0:{"Text": "            ", "tweet_date": "  ", "Keyword": " ", "UserHandle": "@ "},
+ 1:{"Text": "            ", "tweet_date": "  ", "Keyword": " ", "UserHandle": "@ "}}`
 
 
