@@ -4,6 +4,7 @@ The API gathers recent tweets related to 3 keywords:
 - Environment
 - Climate change
 - Forest fire
+
 From 3 user profiles:
 - @ClimateHome
 - @SailForScience
