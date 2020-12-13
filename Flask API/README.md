@@ -29,7 +29,7 @@ The server will run on port `5000`
 
 ## How to call the Flask API?
 
-- **API Call:** `http://127.0.0.1:5000/tweets`
+- **API Call:** `http://127.0.0.1:5000/tweets` or `https://flask-api-mlh.herokuapp.com/tweets`
 - **Request Method:** get 
 - **Returns:** JSON
 `{0:{"Text": "            ", "tweet_date": "  ", "Keyword": " ", "UserHandle": "@ "},
