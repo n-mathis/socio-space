@@ -34,8 +34,10 @@ def clean_tweets(tweet):
             u"\U00002702-\U000027B0"
             u"\U000024C2-\U0001F251"
             "]+", flags=re.UNICODE)
-    tweet = re.sub(r'‚Ä¶', '', tweet)  
-    tweet = emoji_pattern.sub(r'', tweet)       
+    tweet = re.sub(r'‚Ä¶', '', tweet)
+    tweet = re.sub(r'(?:^|\s)[＠ @]{1}([^\s#<>[\]|{}]+)', '',tweet)    
+    tweet = re.sub(r'[^\x00-\x7F]+',' ', tweet)    
+    tweet = emoji_pattern.sub(r'', tweet)
     tweet = re.sub(r':', '', tweet)
     word_tokens = word_tokenize(tweet)
     filtered_tweet = []
