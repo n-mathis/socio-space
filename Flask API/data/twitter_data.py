@@ -59,7 +59,7 @@ def filter_data(tweet, keyword, userhandle):
     df['Tweet_date'] = tweetdate
     df['Text'] = text
     df['Keyword'] = keyword
-    df['UserHandle'] = keyword
+    df['UserHandle'] = userhandle
     data = df.to_dict(orient="index")
     return data
 
