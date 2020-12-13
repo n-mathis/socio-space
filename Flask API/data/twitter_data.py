@@ -34,8 +34,10 @@ def clean_tweets(tweet):
             u"\U00002702-\U000027B0"
             u"\U000024C2-\U0001F251"
             "]+", flags=re.UNICODE)
-    tweet = re.sub(r'‚Ä¶', '', tweet)  
-    tweet = emoji_pattern.sub(r'', tweet)       
+    tweet = re.sub(r'‚Ä¶', '', tweet)
+    tweet = re.sub(r'(?:^|\s)[＠ @]{1}([^\s#<>[\]|{}]+)', '',tweet)    
+    tweet = re.sub(r'[^\x00-\x7F]+',' ', tweet)    
+    tweet = emoji_pattern.sub(r'', tweet)
     tweet = re.sub(r':', '', tweet)
     word_tokens = word_tokenize(tweet)
     filtered_tweet = []
@@ -47,7 +49,7 @@ def clean_tweets(tweet):
 '''
     To filter only required data from Twitter API
 '''
-def filter_data(tweet):
+def filter_data(tweet, keyword, userhandle):
     df = pd.DataFrame()
     text=[]
     tweetdate = []
@@ -56,6 +58,8 @@ def filter_data(tweet):
         tweetdate.append(data['created_at'])
     df['Tweet_date'] = tweetdate
     df['Text'] = text
+    df['Keyword'] = keyword
+    df['UserHandle'] = userhandle
     data = df.to_dict(orient="index")
     return data
 
@@ -67,10 +71,14 @@ def twitter_api_call(api):
     keywords = ["environment", "climate change", "forest fire"]
     userhandles = ['@ClimateHome', "@SailForScience", "@ClimateNewsAfr1"]
     # Fetching tweets
-    tweet=[]
+    tweet = []
+    keyword_list = []
+    userhandle_list = []
     for keyword in keywords:
         for userhandle in userhandles:
             for status in tweepy.Cursor(api.search, screen_name=userhandle, q = keyword, count=10, lang='en', exclude='retweets', since=str(date), result_type='popular').items(2):
                 tweet.append(status._json)   
-    data = filter_data(tweet)
+                keyword_list.append(keyword)
+                userhandle_list.append(userhandle)
+    data = filter_data(tweet, keyword_list, userhandle_list)
     return data
