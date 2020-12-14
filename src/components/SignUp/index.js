@@ -105,7 +105,7 @@ class SignUpFormBase extends Component {
                     />
                   </div>
                   <div className="form-group">
-                    <label>Username</label>
+                    <label>Email</label>
                     <input
                       className="form-control"
                       name="email"
